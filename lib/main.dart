@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: '天气App',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
-        appBar: AppBar(title: const Text('长春')),
+        appBar: AppBar(title: const Text('实时天气')),
         body: const HomePage(),
       ),
     );
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   /// 是否正在获取天气数据
   var _isLoading = false;
 
-  Future<void> update() async {
+  Future<void> refresh() async {
     setState(() => _isLoading = true);
     try {
       await updateWeather();
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
 
   @override
   void afterFirstLayout(BuildContext context) async {
-    await update();
+    await refresh();
   }
 
   @override
@@ -78,7 +78,14 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
       );
     }
 
-    return WeatherWidget(weather: _weather!);
+    return RefreshIndicator(
+      onRefresh: refresh,
+      child: ListView(
+        children: [
+          WeatherWidget(weather: _weather!),
+        ],
+      ),
+    );
   }
 }
 
@@ -92,6 +99,41 @@ class WeatherWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      children: <Widget>[
+        SizedBox(height: 40),
+        Text(
+          '当前温度',
+          style: TextStyle(
+            // fontSize: 16,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        SizedBox(height: 20),
+        Text(
+          '${weather.wendu}°C',
+          style: TextStyle(
+            fontSize: 50,
+            fontWeight: FontWeight.bold,
+            color: Colors.blue[900],
+          ),
+        ),
+        SizedBox(height: 20),
+        Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 8,
+            vertical: 2,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.grey[300],
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Text(
+            weather.city,
+            style: TextStyle(color: Colors.grey[700]),
+          ),
+        ),
+      ],
+    );
   }
 }
