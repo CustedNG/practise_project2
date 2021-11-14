@@ -30,5 +30,19 @@ flutter run
 
 在Github网站上Fork该项目
 
-**2.修改、完善功能**
+**2.在本地运行**
 
+使用`flutter run`命令在本地(电脑或手机)运行
+
+**3.修改、完善**
+
+利用目前所学Dart、Flutter知识完善App的功能和UI，例如：
+
+- 显示当前风力、风向、适度、日落日出时间等信息
+- 显示未来几天的天气预报信息
+
+> Tip: 可用天气数据可在`weather.dart`中查看
+
+- 设计UI，使得界面更加美观
+
+> Tip: 可在[dribbble](https://dribbble.com/search/weather)等网站找寻设计灵感 <img width="400px" src="https://raw.githubusercontent.com/CustedNG/practise_project2/main/media/dribbble.png">
